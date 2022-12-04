@@ -1,0 +1,12 @@
+{
+  "name": "advent",
+  "version": "2.0.22",
+  "description": "advent of code solutions",
+  "scripts": {
+    "day1": "node ./2022/day1/day1.js",
+    "day2": "node ./2022/day2/day2.1.js && node ./2022/day2/day2.2.js",
+    "day3": "node ./2022/day3/day3.1.js && node ./2022/day3/day3.2.js"
+  },
+  "author": "azrrik",
+  "type": "module"
+}
