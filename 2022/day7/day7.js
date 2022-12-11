@@ -26,7 +26,6 @@ const addFile = (acc, line) => {
 };
 
 const isCommand = /^\$ .*$/;
-const isFile = /^[0-9].*/;
 
 const solve = (data) => {
   const groupedByDirectory = data
