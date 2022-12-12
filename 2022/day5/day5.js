@@ -1,13 +1,13 @@
 import assert from 'assert';
 
-import { fileToArrayOfLines } from "../util.js";
+import { fileToArrayOfLines, range } from "../util.js";
 
 const transpose = (matrix) => matrix[0].map(
   (col, i) => matrix.map(row => row[i]).reverse()
 );
 
 const moveIndividualBoxes = (boxArrays, quantity, to, from) =>
-  [...Array(quantity).keys()].map(
+  range(1, quantity).map(
     () => boxArrays[to].push(boxArrays[from].pop())
   );
 
@@ -24,7 +24,7 @@ const solve = (data) => (operation) => {
   const stackedBoxes = parts.first.slice(0, -1).map(
     (line) => {
       const positions = (line.length + 1) / 4;
-      const charsPerLine = [...Array(positions).keys()].reduce(
+      const charsPerLine = range(0, positions).reduce(
         (acc, i) => [...acc, line.charAt(4 * i + 1)],
         []
       );
