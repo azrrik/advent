@@ -9,7 +9,8 @@ const solve = (data) => {
       (line) => (
         line
           .split('')
-          .map((height) => parseInt(height)))
+          .map((height) => parseInt(height))
+      )
     );
 
   const size = matrix.length - 1;
