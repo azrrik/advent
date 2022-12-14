@@ -138,7 +138,11 @@ assert.equal(
 const input = fileToArrayOfLines("./2022/day9/input.txt");
 const { solution1, solution2 } = solve(input);
 console.log(solution1);
-assert.equal(solution1, "1679", "total hidden trees should be 1679");
+assert.equal(
+  solution1,
+  "6464",
+  "total positions tail has visited should be 6464"
+);
 
 // console.log(solution2);
 // assert.equal(solution2, '536625', "total scenic score should be 536625");
