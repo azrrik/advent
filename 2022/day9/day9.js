@@ -7,6 +7,10 @@ const solve = (data) => {
   const moveTail = {
     "-2": {
       // ..T    ...
+      // ...    .T.
+      // H.. => H..
+      "-2": { x: -1, y: -1 },
+      // ..T    ...
       // H.. => HT.
       "-1": { x: -1, y: -1 },
       // H.T => HT.
@@ -14,6 +18,10 @@ const solve = (data) => {
       // H..    .TH
       // ..T => ...
       1: { x: -1, y: 1 },
+      // H..    H..
+      // ...    .T.
+      // ..T => ...
+      2: { x: -1, y: 1 }
     },
     "-1": {
       // .T    ..
@@ -70,6 +78,10 @@ const solve = (data) => {
     },
     2: {
       // T..    ...
+      // ...    .T.
+      // ..H => ..H
+      "-2": { x: 1, y: -1 },
+      // T..    ...
       // ..H => .TH
       "-1": { x: 1, y: -1 },
       // T.H => .TH
@@ -77,6 +89,10 @@ const solve = (data) => {
       // ..H    .TH
       // T.. => ...
       1: { x: 1, y: 1 },
+      // ..H    ..H
+      // ...    .T.
+      // T.. => ...
+      2: { x: 1, y: 1 }
     },
   };
 
@@ -84,7 +100,6 @@ const solve = (data) => {
     const d = moveTail[headPos.x - tailPos.x][headPos.y - tailPos.y];
     return { x: tailPos.x + d.x, y: tailPos.y + d.y };
   };
-
   const moveHead = {
     U: (pos) => ({ x: pos.x, y: pos.y + 1 }),
     D: (pos) => ({ x: pos.x, y: pos.y - 1 }),
@@ -92,7 +107,7 @@ const solve = (data) => {
     R: (pos) => ({ x: pos.x + 1, y: pos.y }),
   };
 
-  const process = (acc, step) => {
+  const solve1 = (acc, step) => {
     return range(1, step.length).reduce(
       (_acc) => {
         const head = moveHead[step.direction](_acc.head);
@@ -104,6 +119,26 @@ const solve = (data) => {
     );
   };
 
+  const solve2 = (acc, step) => {
+    return range(1, step.length).reduce(
+      (_acc) => {
+        _acc.body[0] = moveHead[step.direction](_acc.head);
+        range(1, 9).reduce(
+          (__acc, i) => {
+            __acc.body[i] = updateTail(__acc.body[i], __acc.body[i - 1]);
+            return __acc;
+          },
+          _acc
+        )
+        const head = _acc.body[0];
+        const tail = _acc.body[9];
+        _acc.ground.add(`${tail.x},${tail.y}`);
+        return { head, body, ground: _acc.ground };
+      },
+      { ground: acc.ground, head: acc.head, body: acc.body }
+    );
+  };
+
   const parse = (split) => ({
     direction: split[0],
     length: parseInt(split[1]),
@@ -111,14 +146,22 @@ const solve = (data) => {
 
   const acc = data
     .map((line) => parse(line.split(" ")))
-    .reduce(process, {
+    .reduce(solve1, {
       ground: new Set(),
       head: { x: 0, y: 0 },
       tail: { x: 0, y: 0 },
     });
   const solution1 = acc.ground.size;
 
-  const solution2 = 0;
+  const body = range(0, 9).map(() => ({ x: 0, y: 0 }));
+  const acc2 = data
+    .map((line) => parse(line.split(" ")))
+    .reduce(solve2, {
+      ground: new Set(),
+      head: { x: 0, y: 0 },
+      body: body,
+    });
+  const solution2 = acc2.ground.size;
 
   return { solution1, solution2 };
 };
@@ -132,8 +175,13 @@ assert.equal(
   "total positions tail has visited should be 13"
 );
 
-// console.log(testSolution2);
-// assert.equal(testSolution2, '8', "total scenic score should be 8");
+console.log(testSolution2);
+assert.equal(testSolution2, '1', "total scenic score should be 1");
+
+const test2 = fileToArrayOfLines("./2022/day9/test2.txt");
+const { solution2: testSolution3 } = solve(test2);
+console.log(testSolution3);
+assert.equal(testSolution3, '36', "total scenic score should be 36");
 
 const input = fileToArrayOfLines("./2022/day9/input.txt");
 const { solution1, solution2 } = solve(input);
@@ -144,5 +192,5 @@ assert.equal(
   "total positions tail has visited should be 6464"
 );
 
-// console.log(solution2);
-// assert.equal(solution2, '536625', "total scenic score should be 536625");
+console.log(solution2);
+assert.equal(solution2, '2604', "total scenic score should be 2604");
