@@ -1,6 +1,6 @@
 import assert from 'assert';
 
-import { fileToArrayOfLines } from "../util.js";
+import { fileToArrayOfLines } from '../util.js';
 
 const solve = (data) => (operation) => {
   return data
@@ -11,8 +11,8 @@ const solve = (data) => (operation) => {
       [parseInt(pair[1][0]), parseInt(pair[1][1])]
     ])
     .map((pair) => operation(pair[0], pair[1]) || operation(pair[1], pair[0]))
-    .reduce((acc, contains) => contains ? acc + 1 : acc)
-}
+    .reduce((acc, contains) => contains ? acc + 1 : acc);
+};
 
 const contains = (a, b) => b[0] <= a[0] && b[1] >= a[1];
 
@@ -29,7 +29,7 @@ const testSolution = solve1(test);
 console.log(testSolution);
 assert(testSolution === 2, 'should find 2 contained ranges');
 
-const input = fileToArrayOfLines('./2022/day4/input.txt')
+const input = fileToArrayOfLines('./2022/day4/input.txt');
 const solution1 = solve1(input);
 console.log(solution1);
 assert(solution1 === 584, 'should find 584 contained ranges');

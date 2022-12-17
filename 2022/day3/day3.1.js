@@ -1,6 +1,6 @@
 import assert from 'assert';
 
-import { fileToArrayOfLines } from "../util.js";
+import { fileToArrayOfLines } from '../util.js';
 
 const intersection = (a, b) => a.filter(e => b.includes(e));
 
@@ -9,8 +9,8 @@ const getValue = (char) => {
   // az comes after AZ in unicode, but before AZ in our scoring scheme
   return (unicodeValue <= 90)
     ? unicodeValue - 64 + 26
-    : unicodeValue - 96
-}
+    : unicodeValue - 96;
+};
 
 const solve = (data) => {
   const priorities = data.map(
@@ -22,10 +22,10 @@ const solve = (data) => {
 
       return [...common].map((entry) => getValue(entry));
     }
-  )
+  );
 
   return priorities.reduce((acc, curr) => acc + curr[0], 0);
-}
+};
 
 
 const test = solve(fileToArrayOfLines('./2022/day3/test.txt'));

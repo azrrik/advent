@@ -1,6 +1,6 @@
 import assert from 'assert';
 
-import { fileToArrayOfLines } from "../util.js";
+import { fileToArrayOfLines } from '../util.js';
 
 const solve = (data) => {
   const totals = data.reduce(
@@ -19,7 +19,7 @@ const solve = (data) => {
   );
 
   return totals.splice(1).sort((a, b) => b - a);
-}
+};
 
 
 const test = solve(fileToArrayOfLines('./2022/day1/test.txt'));

@@ -1,6 +1,6 @@
 import assert from 'assert';
 
-import { fileToArrayOfLines } from "../util.js";
+import { fileToArrayOfLines } from '../util.js';
 
 const scores = {
   rock: 1,
@@ -9,7 +9,7 @@ const scores = {
   loss: 0,
   draw: 3,
   win: 6
-}
+};
 
 const decode = {
   A: 'rock',
@@ -18,7 +18,7 @@ const decode = {
   X: 'rock',
   Y: 'paper',
   Z: 'scissors'
-}
+};
 
 const fromOutcomes = {
   rock: {
@@ -36,7 +36,7 @@ const fromOutcomes = {
     paper: 'loss',
     scissors: 'draw'
   }
-}
+};
 
 const getScore = (line) => {
   const split = line.replace('\r', '').split(' ');
@@ -46,7 +46,7 @@ const getScore = (line) => {
   const selectionScore = scores[myMove];
 
   return outcomeScore + selectionScore;
-}
+};
 
 const solve = (data) => data.reduce((acc, curr) => acc + getScore(curr), 0);
 

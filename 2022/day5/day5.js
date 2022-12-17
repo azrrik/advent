@@ -1,6 +1,6 @@
 import assert from 'assert';
 
-import { fileToArrayOfLines, range } from "../util.js";
+import { fileToArrayOfLines, range } from '../util.js';
 
 const transpose = (matrix) => matrix[0].map(
   (col, i) => matrix.map(row => row[i]).reverse()
@@ -19,7 +19,7 @@ const solve = (data) => (operation) => {
         : { first: [...acc.first], second: [...acc.second, line], firstPart: false }
     ,
     { first: [], second: [], firstPart: true }
-  )
+  );
 
   const stackedBoxes = parts.first.slice(0, -1).map(
     (line) => {
@@ -31,7 +31,7 @@ const solve = (data) => (operation) => {
 
       return charsPerLine;
     }
-  )
+  );
 
   const boxArrays = transpose(stackedBoxes)
     .map((array) => array.filter((e) => e !== ' '));
@@ -44,12 +44,12 @@ const solve = (data) => (operation) => {
       const to = parseInt(matches[0][3]) - 1;
       operation(boxArrays, quantity, to, from);
     }
-  )
+  );
 
   return boxArrays
     .map((array) => array.pop())
     .reduce((acc, box) => acc + box, '');
-}
+};
 
 const solve1 = (data) => solve(data)(moveIndividualBoxes);
 
@@ -58,7 +58,7 @@ const moveAllBoxes = (boxArrays, quantity, to, from) => {
   const remaining = boxArrays[from].slice(0, boxArrays[from].length - quantity);
   boxArrays[from] = remaining;
   boxArrays[to] = boxArrays[to].concat(toMove);
-}
+};
 
 const solve2 = (data) => solve(data)(moveAllBoxes);
 
@@ -66,17 +66,17 @@ const solve2 = (data) => solve(data)(moveAllBoxes);
 const test = fileToArrayOfLines('./2022/day5/test.txt');
 const testSolution1 = solve1(test);
 console.log(testSolution1);
-assert.equal(testSolution1, 'CMZ', "top boxes should be CMZ");
+assert.equal(testSolution1, 'CMZ', 'top boxes should be CMZ');
 
 const input = fileToArrayOfLines('./2022/day5/input.txt');
 const solution1 = solve1(input);
 console.log(solution1);
-assert.equal(solution1, 'MQTPGLLDN', "top boxes should be MQTPGLLDN");
+assert.equal(solution1, 'MQTPGLLDN', 'top boxes should be MQTPGLLDN');
 
 const testSolution2 = solve2(test);
 console.log(testSolution2);
-assert.equal(testSolution2, 'MCD', "top boxes should be MCD");
+assert.equal(testSolution2, 'MCD', 'top boxes should be MCD');
 
 const solution2 = solve2(input);
 console.log(solution2);
-assert.equal(solution2, 'LVZPSTTCZ', "top boxes should be LVZPSTTCZ");
+assert.equal(solution2, 'LVZPSTTCZ', 'top boxes should be LVZPSTTCZ');

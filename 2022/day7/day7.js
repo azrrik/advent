@@ -1,9 +1,9 @@
 import assert from 'assert';
 
-import { fileToArrayOfLines } from "../util.js";
+import { fileToArrayOfLines } from '../util.js';
 
 
-const cdUp = (dir) => dir.slice(0, dir.lastIndexOf("/"));
+const cdUp = (dir) => dir.slice(0, dir.lastIndexOf('/'));
 
 const processCD = (acc, command) =>
   command[1] === '..'
@@ -20,9 +20,9 @@ const addFile = (acc, line) => {
   const size = parseInt(split[0]);
   const name = split[1];
   const curr = acc.contents[acc.location] || [];
-  const newArray = [...curr, { size, name }]
+  const newArray = [...curr, { size, name }];
 
-  return { ...acc, contents: { ...acc.contents, [acc.location]: newArray } }
+  return { ...acc, contents: { ...acc.contents, [acc.location]: newArray } };
 };
 
 const isCommand = /^\$ .*$/;
@@ -62,22 +62,22 @@ const solve = (data) => {
     .slice(-1)[0];
 
   return { solution1, solution2 };
-}
+};
 
 
 const test = fileToArrayOfLines('./2022/day7/test.txt');
 const { solution1: testSolution1, solution2: testSolution2 } = solve(test);
 console.log(testSolution1);
-assert.equal(testSolution1, '95437', "total size should be 95437");
+assert.equal(testSolution1, '95437', 'total size should be 95437');
 
 console.log(testSolution2);
-assert.equal(testSolution2, '24933642', "total size should be 24933642");
+assert.equal(testSolution2, '24933642', 'total size should be 24933642');
 
 
 const input = fileToArrayOfLines('./2022/day7/input.txt');
 const { solution1, solution2 } = solve(input);
 console.log(solution1);
-assert.equal(solution1, '1307902', "total size should be 1307902");
+assert.equal(solution1, '1307902', 'total size should be 1307902');
 
 console.log(solution2);
-assert.equal(solution2, '7068748', "total size should be 7068748");
+assert.equal(solution2, '7068748', 'total size should be 7068748');

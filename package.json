@@ -9,5 +9,9 @@
     "day4": "node ./2022/day4/day4.js"
   },
   "author": "azrrik",
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "eslint": "^8.29.0",
+    "eslint-plugin-functional": "^4.4.1"
+  }
 }
